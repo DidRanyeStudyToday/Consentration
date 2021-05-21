@@ -1,4 +1,4 @@
-package com.example.consentration.ui.notifications
+package com.example.consentration.ui.clock
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.consentration.R
 
-class NotificationsFragment : Fragment() {
+class ClockFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    private lateinit var clockViewModel: ClockViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-                ViewModelProvider(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_statistic, container, false)
-        val textView: TextView = root.findViewById(R.id.text_statistic)
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
+        clockViewModel =
+                ViewModelProvider(this).get(ClockViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_clock, container, false)
+        val textView: TextView = root.findViewById(R.id.text_clock)
+        clockViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

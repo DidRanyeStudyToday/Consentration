@@ -1,4 +1,4 @@
-package com.example.consentration.ui.dashboard
+package com.example.consentration.ui.statistic
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.consentration.R
 
-class DashboardFragment : Fragment() {
+class StatisticFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var statisticViewModel: StatisticViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-                ViewModelProvider(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_plan, container, false)
-        val textView: TextView = root.findViewById(R.id.text_plan)
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
+        statisticViewModel =
+                ViewModelProvider(this).get(StatisticViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_statistic, container, false)
+        val textView: TextView = root.findViewById(R.id.text_statistic)
+        statisticViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
