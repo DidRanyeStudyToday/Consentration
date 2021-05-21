@@ -1,4 +1,4 @@
-package com.example.consentration.ui.home
+package com.example.consentration.ui.plan
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.consentration.R
 
-class HomeFragment : Fragment() {
+class PlanFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var planViewModel: PlanViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_clock, container, false)
-        val textView: TextView = root.findViewById(R.id.text_clock)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+        planViewModel =
+                ViewModelProvider(this).get(PlanViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_plan, container, false)
+        val textView: TextView = root.findViewById(R.id.text_plan)
+        planViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

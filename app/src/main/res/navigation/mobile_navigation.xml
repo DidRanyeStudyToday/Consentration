@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_clock"
-        android:name="com.example.consentration.ui.home.HomeFragment"
+        android:name="com.example.consentration.ui.clock.ClockFragment"
         android:label="@string/title_clock"
         tools:layout="@layout/fragment_clock" />
 
     <fragment
         android:id="@+id/navigation_plan"
-        android:name="com.example.consentration.ui.dashboard.DashboardFragment"
+        android:name="com.example.consentration.ui.plan.PlanFragment"
         android:label="@string/title_plan"
         tools:layout="@layout/fragment_plan" />
 
     <fragment
         android:id="@+id/navigation_statistics"
-        android:name="com.example.consentration.ui.notifications.NotificationsFragment"
+        android:name="com.example.consentration.ui.statistic.StatisticFragment"
         android:label="@string/title_statistics"
         tools:layout="@layout/fragment_statistic" />
 </navigation>
