@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Consentration</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_clock">倒计时</string>
+    <string name="title_plan">计划</string>
+    <string name="title_statistics">学习统计</string>
 </resources>
