@@ -3,5 +3,5 @@
     <string name="title_clock">倒计时</string>
     <string name="title_plan">计划</string>
     <string name="title_statistics">学习统计</string>
-    <string name="left_message">剩余%1s月%2s天</string>
+    <string name="left_message">距离2022考研还剩%1s月%2s天</string>
 </resources>

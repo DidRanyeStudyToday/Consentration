@@ -13,37 +13,62 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="80dp"
+            android:layout_marginStart="@dimen/margin_XXXL"
+            android:layout_marginTop="@dimen/margin_XXXL"
+            android:layout_marginEnd="@dimen/margin_XXXL"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="43dp"
                 android:background="@drawable/month_background">
 
                 <TextView
-                    android:id="@+id/current_month"
+                    android:id="@+id/current_day_of_week"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="43dp"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="40sp" />
+                    android:textSize="@dimen/font_size_Large" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="180dp"
+                android:orientation="vertical"
                 android:background="@drawable/day_background">
 
                 <TextView
                     android:id="@+id/current_day"
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
+                    android:layout_height="120dp"
                     android:gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="100sp" />
+                    android:textSize="@dimen/font_size_XXXL" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/margin_S">
+
+                    <TextView
+                        android:id="@+id/current_year"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_Normal" />
+
+                    <TextView
+                        android:id="@+id/current_month"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_Normal" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
         </LinearLayout>
@@ -51,9 +76,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp">
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_vertical_margin">
 
             <TextView
                 android:id="@+id/clock"
@@ -62,7 +87,7 @@
                 android:layout_margin="20dp"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:textSize="40sp" />
+                android:textSize="@dimen/font_size_Normal" />
         </LinearLayout>
 
     </LinearLayout>

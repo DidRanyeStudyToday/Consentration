@@ -3,17 +3,23 @@ package com.example.consentration.ui.clock
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.Month
-import java.time.Period
+import java.time.*
 import java.util.*
 
 class ClockViewModel : ViewModel() {
 
+    private val current = MutableLiveData<LocalDate>()
+
+    init {
+        current.value =  LocalDate.now()
+    }
+
+    private val _year = MutableLiveData<String>().apply {
+        value = current.value?.year.toString() + " 年"
+    }
+
     private val _month = MutableLiveData<String>().apply {
-        val current = LocalDate.now()
-        value = when (current.month) {
+        value = when (current.value?.month) {
             Month.JANUARY -> "一月"
             Month.FEBRUARY -> "二月"
             Month.MARCH -> "三月"
@@ -26,25 +32,36 @@ class ClockViewModel : ViewModel() {
             Month.OCTOBER -> "十月"
             Month.NOVEMBER -> "十一月"
             Month.DECEMBER -> "十二月"
-            null -> "无"
+            else -> "NULL"
         }
-
     }
 
     private val _day = MutableLiveData<String>().apply {
-        val current = LocalDateTime.now()
-        value = current.dayOfMonth.toString()
+        value = current.value?.dayOfMonth.toString()
+    }
+
+    private val _dayOfWeek = MutableLiveData<String>().apply {
+        value = when (current.value?.dayOfWeek) {
+            DayOfWeek.MONDAY -> "M O N"
+            DayOfWeek.TUESDAY -> "T U E"
+            DayOfWeek.WEDNESDAY -> "W E D"
+            DayOfWeek.THURSDAY -> "T H U"
+            DayOfWeek.FRIDAY -> "F R I"
+            DayOfWeek.SATURDAY -> "S A T"
+            DayOfWeek.SUNDAY -> "S U N"
+            else -> "NULL"
+        }
     }
 
     private val _diff = MutableLiveData<Period>().apply {
-        val current = LocalDate.now()
         val theDay = LocalDate.of(2021, Month.DECEMBER, 26)
-
-        val diff = Period.between(current, theDay)
+        val diff = Period.between(current.value, theDay)
         value = diff
     }
 
-    val month: LiveData<String> = _month
-    val day: LiveData<String> = _day
-    val diff: LiveData<Period> = _diff
+    val year: LiveData<String> get() = _year
+    val month: LiveData<String> get() = _month
+    val day: LiveData<String> get() = _day
+    val dayOfWeek: LiveData<String> get() = _dayOfWeek
+    val diff: LiveData<Period> get() = _diff
 }

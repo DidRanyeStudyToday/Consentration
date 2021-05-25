@@ -15,7 +15,6 @@ import com.example.consentration.databinding.FragmentClockBinding
 class ClockFragment : Fragment() {
 
     private lateinit var clockViewModel: ClockViewModel
-
     private lateinit var binding: FragmentClockBinding
 
     override fun onCreateView(
@@ -28,6 +27,11 @@ class ClockFragment : Fragment() {
             ViewModelProvider(this).get(ClockViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_clock, container, false)
 
+        val yearView: TextView = root.findViewById(R.id.current_year)
+        clockViewModel.year.observe(viewLifecycleOwner, {
+            yearView.text = it
+        })
+
         val monthView: TextView = root.findViewById(R.id.current_month)
         clockViewModel.month.observe(viewLifecycleOwner, {
             monthView.text = it
@@ -36,6 +40,11 @@ class ClockFragment : Fragment() {
         val dayView: TextView = root.findViewById(R.id.current_day)
         clockViewModel.day.observe(viewLifecycleOwner, {
             dayView.text = it
+        })
+
+        val dayOfWeekView: TextView = root.findViewById(R.id.current_day_of_week)
+        clockViewModel.dayOfWeek.observe(viewLifecycleOwner, {
+            dayOfWeekView.text = it
         })
 
         val clockView: TextView = root.findViewById(R.id.clock)
