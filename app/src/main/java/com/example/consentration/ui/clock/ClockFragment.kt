@@ -1,5 +1,6 @@
 package com.example.consentration.ui.clock
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +37,12 @@ class ClockFragment : Fragment() {
         clockViewModel.day.observe(viewLifecycleOwner, {
             dayView.text = it
         })
+
+        val clockView: TextView = root.findViewById(R.id.clock)
+        clockViewModel.diff.observe(viewLifecycleOwner, {
+            clockView.text = getString(R.string.left_message, it.months.toString(), it.days.toString())
+        })
+
         return root
     }
 
