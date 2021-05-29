@@ -4,28 +4,70 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.consentration.R
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.Description
+import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import java.util.*
 
 class StatisticFragment : Fragment() {
 
     private lateinit var statisticViewModel: StatisticViewModel
 
+    private lateinit var entries: ArrayList<Entry>
+
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         statisticViewModel =
-                ViewModelProvider(this).get(StatisticViewModel::class.java)
+            ViewModelProvider(this).get(StatisticViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_statistic, container, false)
-        val textView: TextView = root.findViewById(R.id.text_statistic)
-        statisticViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
+        val chart: LineChart = root.findViewById(R.id.chart)
+
+        entries = ArrayList()
+
+        entries.add(Entry(1F, 14F))
+        entries.add(Entry(2F, 6F))
+        entries.add(Entry(3F, 7F))
+
+        val dataSet = LineDataSet(entries, "label")
+
+        val lineData = LineData(dataSet)
+        chart.data = lineData
+        chart.isDragEnabled = false
+        chart.isScaleYEnabled = false
+
+        val xAxis = chart.xAxis
+        xAxis.position = XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+        xAxis.setDrawAxisLine(true)
+        xAxis.setLabelCount(12, false)
+        xAxis.granularity = 1F
+        xAxis.spaceMax = 12F
+        xAxis.spaceMin = 12F
+
+        val leftAxis: YAxis = chart.axisLeft
+        leftAxis.setLabelCount(5, false)
+        leftAxis.axisMinimum = 0f
+
+        val rightAxis: YAxis = chart.axisRight
+        rightAxis.isEnabled = false
+
+        val description = chart.description
+        description.text = "学习时间"
+        chart.description = description
+
+        chart.invalidate()
+
         return root
     }
 }
