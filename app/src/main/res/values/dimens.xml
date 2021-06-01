@@ -9,6 +9,8 @@
     <dimen name="margin_L">40dp</dimen>
     <dimen name="margin_Normal">20dp</dimen>
     <dimen name="margin_S">10dp</dimen>
+    <dimen name="margin_XS">5dp</dimen>
+    <dimen name="margin_XXS">3dp</dimen>
 <!--    <dimen name=""-->
 
 

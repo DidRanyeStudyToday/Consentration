@@ -2,6 +2,23 @@
     <string name="app_name">贵一</string>
     <string name="title_clock">倒计时</string>
     <string name="title_plan">计划</string>
-    <string name="title_statistics">学习统计</string>
+    <string name="title_statistics">学习统计</string>、
+
+<!--倒计时-->
     <string name="left_message">距离2022考研还剩%1s月%2s天</string>
+
+<!--默认计划-->
+    <string name="plan1_name">接力题典1800 P45~P46</string>
+    <string name="plan2_name">张剑黄皮书 2010 完型+阅读</string>
+    <string name="plan3_name">王道数据结构 P54~P60</string>
+    <string name="plan4_name">王道操作系统 P24~P27</string>
+    <string name="plan5_name">王道计算机网络 P63~P65</string>
+    <string name="plan6_name">王道组成原理 P38~P41</string>
+    <string name="plan7_name">张宇基础班 线性代数第5讲</string>
+    <string name="plan8_name">余炳森基础班 概率统计01</string>
+    <string name="plan9_name">剩下的</string>
+    <string name="plan10_name">实在是</string>
+    <string name="plan11_name">编不出来</string>
+    <string name="plan12_name">了</string>
+
 </resources>
