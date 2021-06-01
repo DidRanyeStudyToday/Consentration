@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.consentration.R
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
@@ -42,9 +42,11 @@ class StatisticFragment : Fragment() {
         val dataSet = LineDataSet(entries, "label")
 
         val lineData = LineData(dataSet)
+        lineData.setValueFormatter(MyValueFormatter())
         chart.data = lineData
-        chart.isDragEnabled = false
-        chart.isScaleYEnabled = false
+        chart.isDragEnabled = true
+        chart.isScaleYEnabled = true
+        chart.isScaleXEnabled = true
 
         val xAxis = chart.xAxis
         xAxis.position = XAxisPosition.BOTTOM
@@ -54,6 +56,8 @@ class StatisticFragment : Fragment() {
         xAxis.granularity = 1F
         xAxis.spaceMax = 12F
         xAxis.spaceMin = 12F
+        xAxis.axisMinimum = 1F
+        xAxis.enableGridDashedLine(10f, 10f, 0f)
 
         val leftAxis: YAxis = chart.axisLeft
         leftAxis.setLabelCount(5, false)
@@ -65,6 +69,9 @@ class StatisticFragment : Fragment() {
         val description = chart.description
         description.text = "学习时间"
         chart.description = description
+
+        val legend = chart.legend
+        legend.isEnabled = false
 
         chart.invalidate()
 

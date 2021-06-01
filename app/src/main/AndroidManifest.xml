@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Consentration">
+        <activity android:name=".ui.ClockActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
