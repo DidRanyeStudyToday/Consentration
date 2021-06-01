@@ -6,6 +6,7 @@
     tools:context=".ui.clock.ClockFragment">
 
     <LinearLayout
+        android:id="@+id/clock_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -35,8 +36,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:orientation="vertical"
-                android:background="@drawable/day_background">
+                android:background="@drawable/day_background"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/current_day"
@@ -89,6 +90,8 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/font_size_Normal" />
         </LinearLayout>
+
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
