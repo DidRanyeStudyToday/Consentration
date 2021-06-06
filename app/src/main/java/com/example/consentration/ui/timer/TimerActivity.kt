@@ -21,6 +21,14 @@ class TimerActivity : AppCompatActivity() {
 
     private lateinit var timer: CountDownTimer
 
+    private var timerState = TimerState.Stopped
+
+    private var timerLength = 60L * 45
+
+    private var timerRemainLength = 60L * 45
+
+    private val previousTimerLength = 0L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTimerBinding.inflate(layoutInflater)
@@ -32,20 +40,20 @@ class TimerActivity : AppCompatActivity() {
         supportActionBar?.title = "       番茄钟"
 
         binding.fabStart.setOnClickListener {
-//            startTimer()
-            timerViewModel.startTimer()
-//            updateButtons()
+            startTimer()
+            timerViewModel.timerState.value = TimerState.Running
+            updateButtons()
         }
 
         binding.fabPause.setOnClickListener {
             timer.cancel()
-            timerViewModel.pauseTimer()
-//            updateButtons()
+            timerViewModel.timerState.value = TimerState.Paused
+            updateButtons()
         }
 
         binding.fabStop.setOnClickListener {
             timer.cancel()
-
+            onTimerFinished()
         }
     }
 
@@ -59,27 +67,95 @@ class TimerActivity : AppCompatActivity() {
         super.onPause()
 
         if (timerViewModel.timerState.value == TimerState.Running) {
-
+            timer.cancel()
         } else if (timerViewModel.timerState.value == TimerState.Paused) {
 
         }
 
-        timerViewModel.timerLength.value?.let { timerViewModel.setPreviousTimerLength(it) }
+        timerViewModel.previousTimerLength.value = timerLength
+        timerViewModel.timerRemainLength.value = timerRemainLength
+        timerViewModel.timerState.value = timerState
     }
 
     private fun initTimer() {
-        val timerState = timerViewModel.timerState.value
+        timerState = timerViewModel.timerState.value!!
 
         if (timerState == TimerState.Stopped) {
-//            setNewTimerLength()
-        }
-        else{
-//            setPreviousTimerLength()
+            setNewTimerLength()
+        } else {
+            setPreviousTimerLength()
         }
 
-        if (timerState == TimerState.Stopped) {
-            timerViewModel.timerReamingLength.value?.let { timerViewModel.timerLength.value }
+        timerRemainLength =
+            if (timerState == TimerState.Stopped) {
+                timerLength
+            } else {
+                timerViewModel.timerRemainLength.value!!
+            }
+
+        //TODO
+
+        if (timerState == TimerState.Running)
+            startTimer()
+
+        updateButtons()
+        updateCountdownUI()
+    }
+
+    private fun onTimerFinished() {
+        timerState = TimerState.Stopped
+
+        setNewTimerLength()
+
+        binding.timerContent.processCountdown.progress = 0
+
+        timerViewModel.timerRemainLength.value = timerLength
+        timerRemainLength = timerLength
+
+        updateButtons()
+        updateCountdownUI()
+    }
+
+    private fun startTimer() {
+        timerState = TimerState.Running
+
+        timer =
+            object : CountDownTimer(timerRemainLength * 1000, 1000) {
+                override fun onFinish() {
+                    onTimerFinished()
+                }
+
+                override fun onTick(millisUntilFinished: Long) {
+                    timerRemainLength = millisUntilFinished / 1000
+                    updateCountdownUI()
+                }
+            }.start()
+
+        updateButtons()
+        updateCountdownUI()
+    }
+
+    private fun updateCountdownUI() {
+        val seconds = timerRemainLength
+        val minutes = seconds / 60
+        val second = seconds - minutes * 60
+        binding.timerContent.countDown.text = "$minutes:$second"
+        binding.timerContent.processCountdown.progress = (timerLength - timerRemainLength).toInt()
+    }
+
+    private fun updateButtons() {
+        when (timerViewModel.timerState) {
+
         }
+    }
+
+    private fun setNewTimerLength() {
+        binding.timerContent.processCountdown.max = timerViewModel.timerLength.value?.toInt() ?: 0
+    }
+
+    private fun setPreviousTimerLength() {
+        timerLength = timerViewModel.previousTimerLength.value!!
+        binding.timerContent.processCountdown.max = timerLength.toInt()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
