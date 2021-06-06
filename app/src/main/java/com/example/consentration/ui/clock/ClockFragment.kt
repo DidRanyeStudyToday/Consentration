@@ -52,8 +52,6 @@ class ClockFragment : Fragment() {
 
         val clockFragment: LinearLayout = root.findViewById(R.id.clock_fragment)
 
-
-
         return root
     }
 }

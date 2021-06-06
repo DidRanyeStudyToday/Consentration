@@ -1,13 +1,12 @@
-package com.example.consentration
+package com.example.consentration.ui.timer
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.health.TimerStat
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.consentration.R
 import com.example.consentration.databinding.ActivityTimerBinding
 
 class TimerActivity : AppCompatActivity() {
@@ -16,19 +15,16 @@ class TimerActivity : AppCompatActivity() {
         Stopped, Paused, Running
     }
 
+    private lateinit var timerViewModel: TimerViewModel
+
     private lateinit var binding: ActivityTimerBinding
 
     private lateinit var timer: CountDownTimer
 
-    private var timerState = TimerState.Stopped
-
-    private var timerLength = 0L
-
-    private var timerRemingLength = 0L
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTimerBinding.inflate(layoutInflater)
+        timerViewModel = ViewModelProvider(this).get(TimerViewModel::class.java)
         val view = binding.root
         setContentView(view)
         setSupportActionBar(binding.toolbar)
@@ -36,20 +32,20 @@ class TimerActivity : AppCompatActivity() {
         supportActionBar?.title = "       番茄钟"
 
         binding.fabStart.setOnClickListener {
-            startTimer()
-            timerState = TimerState.Running
-            updateButtons()
+//            startTimer()
+            timerViewModel.startTimer()
+//            updateButtons()
         }
 
         binding.fabPause.setOnClickListener {
             timer.cancel()
-            timerState = TimerState.Paused
-            updateButtons()
+            timerViewModel.pauseTimer()
+//            updateButtons()
         }
 
         binding.fabStop.setOnClickListener {
             timer.cancel()
-            timerState = TimerState.Stopped
+
         }
     }
 
@@ -62,10 +58,27 @@ class TimerActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
 
-        if (timerState == TimerState.Running) {
+        if (timerViewModel.timerState.value == TimerState.Running) {
 
-        } else if (timerState == TimerState.Paused) {
+        } else if (timerViewModel.timerState.value == TimerState.Paused) {
 
+        }
+
+        timerViewModel.timerLength.value?.let { timerViewModel.setPreviousTimerLength(it) }
+    }
+
+    private fun initTimer() {
+        val timerState = timerViewModel.timerState.value
+
+        if (timerState == TimerState.Stopped) {
+//            setNewTimerLength()
+        }
+        else{
+//            setPreviousTimerLength()
+        }
+
+        if (timerState == TimerState.Stopped) {
+            timerViewModel.timerReamingLength.value?.let { timerViewModel.timerLength.value }
         }
     }
 

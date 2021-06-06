@@ -4,14 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GestureDetectorCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.consentration.ui.timer.TimerActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.math.abs
 
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openClock() {
-        val intent = Intent(this,TimerActivity::class.java)
+        val intent = Intent(this, TimerActivity::class.java)
         startActivity(intent)
     }
 

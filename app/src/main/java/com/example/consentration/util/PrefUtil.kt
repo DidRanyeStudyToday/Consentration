@@ -1,9 +1,7 @@
 package com.example.consentration.util
 
 import android.content.Context
-import android.os.health.TimerStat
-import android.preference.PreferenceActivity
-import com.example.consentration.TimerActivity
+import com.example.consentration.ui.timer.TimerActivity
 
 class PrefUtil {
     companion object {

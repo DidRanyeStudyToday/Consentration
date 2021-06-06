@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Consentration">
         <activity
-            android:name=".TimerActivity"
+            android:name=".ui.timer.TimerActivity"
             android:label="@string/title_activity_timer"
             android:theme="@style/Theme.Consentration.NoActionBar">
 
