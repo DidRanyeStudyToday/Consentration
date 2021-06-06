@@ -1,7 +1,6 @@
-package com.example.consentration.data
+package com.example.consentration.plan
 
 data class Plan(
-    val id: Long,
     val name: String,
     var isDone: Boolean
 )
