@@ -1,7 +1,12 @@
 package com.example.consentration.ui.timer
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +20,31 @@ class TimerActivity : AppCompatActivity() {
         Stopped, Paused, Running
     }
 
+    companion object {
+        fun setAlarm(
+            context: Context,
+            nowSeconds: Long,
+            Remaining: Long,
+            timerViewModel: TimerViewModel
+        ): Long {
+            val wakeUpTime = (nowSeconds + Remaining) * 1000
+            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val intent = Intent(context, TimerExpiredReceiver::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, wakeUpTime, pendingIntent)
+            timerViewModel.alarmSetTime.value = nowSeconds
+            return wakeUpTime
+        }
+
+        fun removeAlarm(context: Context, timerViewModel: TimerViewModel) {
+            val intent = Intent(context, TimerExpiredReceiver::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            alarmManager.cancel(pendingIntent)
+            timerViewModel.alarmSetTime.value = 0L
+        }
+    }
+
     private lateinit var timerViewModel: TimerViewModel
 
     private lateinit var binding: ActivityTimerBinding
@@ -26,8 +56,6 @@ class TimerActivity : AppCompatActivity() {
     private var timerLength = 60L * 45
 
     private var timerRemainLength = 60L * 45
-
-    private val previousTimerLength = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +89,8 @@ class TimerActivity : AppCompatActivity() {
         super.onResume()
 
         initTimer()
+
+        removeAlarm(this, timerViewModel)
     }
 
     override fun onPause() {
@@ -68,6 +98,7 @@ class TimerActivity : AppCompatActivity() {
 
         if (timerViewModel.timerState.value == TimerState.Running) {
             timer.cancel()
+            val wakeUpTime = setAlarm(this, timerLength, timerRemainLength, timerViewModel)
         } else if (timerViewModel.timerState.value == TimerState.Paused) {
 
         }
@@ -93,9 +124,13 @@ class TimerActivity : AppCompatActivity() {
                 timerViewModel.timerRemainLength.value!!
             }
 
-        //TODO
-
-        if (timerState == TimerState.Running)
+        val alarmSetTime = timerViewModel.alarmSetTime.value!!
+        if (alarmSetTime > 0) {
+            timerRemainLength -= timerLength - alarmSetTime
+        }
+        if (timerRemainLength <= 0)
+            onTimerFinished()
+        else if (timerState == TimerState.Running)
             startTimer()
 
         updateButtons()
@@ -139,7 +174,7 @@ class TimerActivity : AppCompatActivity() {
         val seconds = timerRemainLength
         val minutes = seconds / 60
         val second = seconds - minutes * 60
-        binding.timerContent.countDown.text = "$minutes:$second"
+        binding.timerContent.countDown.text = getString(R.string.timer_message, minutes, second)
         binding.timerContent.processCountdown.progress = (timerLength - timerRemainLength).toInt()
     }
 

@@ -6,7 +6,8 @@
 
     <!--倒计时-->
     <string name="left_message">距离2022考研还剩%1s月%2s天</string>
-
+    <string name="timer_message">%1$d:%2$2d</string>
+    
     <!--默认计划-->
     <string name="plan1_name">接力题典1800 P45~P46</string>
     <string name="plan2_name">张剑黄皮书 2010 完型+阅读</string>
