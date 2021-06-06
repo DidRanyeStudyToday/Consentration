@@ -9,7 +9,6 @@ class TimerExpiredReceiver : BroadcastReceiver() {
     private lateinit var timerViewModel: TimerViewModel
 
     override fun onReceive(context: Context, intent: Intent) {
-
     }
 
 }

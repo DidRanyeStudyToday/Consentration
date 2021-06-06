@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.consentration.R
 import com.example.consentration.databinding.ActivityTimerBinding
+import java.util.*
 
 class TimerActivity : AppCompatActivity() {
 
@@ -43,6 +44,9 @@ class TimerActivity : AppCompatActivity() {
             alarmManager.cancel(pendingIntent)
             timerViewModel.alarmSetTime.value = 0L
         }
+
+        val nowSeconds: Long
+            get() = Calendar.getInstance().timeInMillis / 1000
     }
 
     private lateinit var timerViewModel: TimerViewModel
@@ -98,7 +102,7 @@ class TimerActivity : AppCompatActivity() {
 
         if (timerViewModel.timerState.value == TimerState.Running) {
             timer.cancel()
-            val wakeUpTime = setAlarm(this, timerLength, timerRemainLength, timerViewModel)
+            val wakeUpTime = setAlarm(this, nowSeconds, timerRemainLength, timerViewModel)
         } else if (timerViewModel.timerState.value == TimerState.Paused) {
 
         }
@@ -126,7 +130,7 @@ class TimerActivity : AppCompatActivity() {
 
         val alarmSetTime = timerViewModel.alarmSetTime.value!!
         if (alarmSetTime > 0) {
-            timerRemainLength -= timerLength - alarmSetTime
+            timerRemainLength -= nowSeconds - alarmSetTime
         }
         if (timerRemainLength <= 0)
             onTimerFinished()
