@@ -12,11 +12,12 @@
     <dimen name="margin_XS">8dp</dimen>
     <dimen name="margin_XXS">5dp</dimen>
     <dimen name="margin_XXXS">3dp</dimen>
-<!--    <dimen name=""-->
+    <!--    <dimen name=""-->
 
 
-<!--    font size-->
+    <!--    font size-->
     <dimen name="font_size_XXXL">100sp</dimen>
     <dimen name="font_size_Large">20sp</dimen>
     <dimen name="font_size_Normal">16sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

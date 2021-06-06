@@ -1,19 +1,16 @@
 package com.example.consentration.ui.clock
 
-import android.content.res.Resources
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.GestureDetectorCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.consentration.R
 import com.example.consentration.databinding.FragmentClockBinding
 
 class ClockFragment : Fragment() {
-
     private lateinit var clockViewModel: ClockViewModel
     private lateinit var binding: FragmentClockBinding
 
@@ -49,10 +46,12 @@ class ClockFragment : Fragment() {
 
         val clockView: TextView = root.findViewById(R.id.clock)
         clockViewModel.diff.observe(viewLifecycleOwner, {
-            clockView.text = getString(R.string.left_message, it.months.toString(), it.days.toString())
+            clockView.text =
+                getString(R.string.left_message, it.months.toString(), it.days.toString())
         })
+
+        val clockFragment: LinearLayout = root.findViewById(R.id.clock_fragment)
 
         return root
     }
-
 }

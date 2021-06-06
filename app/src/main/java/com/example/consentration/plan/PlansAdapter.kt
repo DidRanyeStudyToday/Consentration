@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.consentration.R
 
 class PlansAdapter(
-        private val plans: MutableList<Plan>
+    private val plans: MutableList<Plan>
 ) : RecyclerView.Adapter<PlansAdapter.PlanViewHolder>() {
 
     private fun toggleStrikeThrough(tvTodoTitle: TextView, isChecked: Boolean) {
-        if(isChecked) {
+        if (isChecked) {
             tvTodoTitle.paintFlags = tvTodoTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
             tvTodoTitle.paintFlags = tvTodoTitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
@@ -27,11 +27,11 @@ class PlansAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlanViewHolder {
 
         return PlanViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                        R.layout.plan_item,
-                        parent,
-                        false
-                )
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.plan_item,
+                parent,
+                false
+            )
         )
     }
 
