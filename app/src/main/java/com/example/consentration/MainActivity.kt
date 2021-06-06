@@ -12,7 +12,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.consentration.ui.ClockActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.math.abs
 
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openClock() {
-        val intent = Intent(this,ClockActivity::class.java)
+        val intent = Intent(this,TimerActivity::class.java)
         startActivity(intent)
     }
 
