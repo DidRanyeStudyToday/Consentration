@@ -15,23 +15,27 @@ import com.example.consentration.plan.PlansAdapter
 class PlanFragment : Fragment() {
 
     private lateinit var planViewModel: PlanViewModel
-
+//    private lateinit var binding: FragmentPlanBinding
     private lateinit var plansAdapter: PlansAdapter
+
+    private var _binding: FragmentPlanBinding? = null
+    private val  binding get() = _binding!!
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+//        binding = FragmentPlanBinding.inflate(inflater, container, false)
+        _binding = FragmentPlanBinding.inflate(inflater, container, false)
         planViewModel =
                 ViewModelProvider(this).get(PlanViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_plan, container, false)
-
-        val binding: FragmentPlanBinding = FragmentPlanBinding.inflate(inflater, container, false)
+//        val root = inflater.inflate(R.layout.fragment_plan, container, false)
+        val root = binding.root
 
         plansAdapter = PlansAdapter(mutableListOf())
 
-        binding.rvTodoItems.layoutManager = LinearLayoutManager(activity)
+//        binding.rvTodoItems.layoutManager = LinearLayoutManager(activity)
         binding.rvTodoItems.adapter = plansAdapter
 
         binding.btnAddTodo.setOnClickListener {
