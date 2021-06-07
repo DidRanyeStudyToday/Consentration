@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.consentration.R
 import com.example.consentration.databinding.ActivityTimerBinding
+import com.example.consentration.util.PrefUtil
 import java.util.*
 
 class TimerActivity : AppCompatActivity() {
@@ -189,7 +190,8 @@ class TimerActivity : AppCompatActivity() {
     }
 
     private fun setNewTimerLength() {
-        binding.timerContent.processCountdown.max = timerViewModel.timerLength.value?.toInt() ?: 0
+        binding.timerContent.processCountdown.max = PrefUtil.getTimerLength(this).toInt()
+        timerLength = PrefUtil.getTimerLength(this)
     }
 
     private fun setPreviousTimerLength() {
@@ -204,7 +206,11 @@ class TimerActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
