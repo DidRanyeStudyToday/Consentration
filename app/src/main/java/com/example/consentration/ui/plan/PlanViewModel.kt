@@ -10,27 +10,6 @@ import com.example.consentration.plan.planList
 import java.time.LocalDate
 
 class PlanViewModel(planList : MutableList<Plan>) : ViewModel() {
-//    private val _planListLiveData = MutableLiveData<List<Plan> >().apply {
-//        value = mutableListOf()
-//    }
-//
-//    val planListLiveData: LiveData<List<Plan> > = _planListLiveData
-
-//    private val _plansAdapter = MutableLiveData<PlansAdapter>().apply{
-//        value = PlansAdapter(mutableListOf())
-//    }
-//
-//    val plansAdapter: LiveData<PlansAdapter> get() = _plansAdapter
-
-//    val planListLiveData : MutableLiveData< MutableList<Plan> > = MutableLiveData(mutableListOf())
-
-//    private var _planListLiveData = MutableLiveData< MutableList<Plan> >()
-//
-//    init {
-//        _planListLiveData.value = mutableListOf()
-//    }
-//
-//    val planListLiveData: LiveData<MutableList<Plan>> get() = _planListLiveData
 
     var planList = planList
 

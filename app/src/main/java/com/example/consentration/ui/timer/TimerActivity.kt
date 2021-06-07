@@ -24,10 +24,10 @@ class TimerActivity : AppCompatActivity() {
 
     companion object {
         fun setAlarm(
-            context: Context,
-            nowSeconds: Long,
-            Remaining: Long,
-            timerViewModel: TimerViewModel
+                context: Context,
+                nowSeconds: Long,
+                Remaining: Long,
+                timerViewModel: TimerViewModel
         ): Long {
             val wakeUpTime = (nowSeconds + Remaining) * 1000
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -123,11 +123,11 @@ class TimerActivity : AppCompatActivity() {
         }
 
         timerRemainLength =
-            if (timerState == TimerState.Stopped) {
-                timerLength
-            } else {
-                timerViewModel.timerRemainLength.value!!
-            }
+                if (timerState == TimerState.Stopped) {
+                    timerLength
+                } else {
+                    timerViewModel.timerRemainLength.value!!
+                }
 
         val alarmSetTime = timerViewModel.alarmSetTime.value!!
         if (alarmSetTime > 0) {
@@ -166,16 +166,16 @@ class TimerActivity : AppCompatActivity() {
         timerState = TimerState.Running
 
         timer =
-            object : CountDownTimer(timerRemainLength * 1000, 1000) {
-                override fun onFinish() {
-                    onTimerFinished()
-                }
+                object : CountDownTimer(timerRemainLength * 1000, 1000) {
+                    override fun onFinish() {
+                        onTimerFinished()
+                    }
 
-                override fun onTick(millisUntilFinished: Long) {
-                    timerRemainLength = millisUntilFinished / 1000
-                    updateCountdownUI()
-                }
-            }.start()
+                    override fun onTick(millisUntilFinished: Long) {
+                        timerRemainLength = millisUntilFinished / 1000
+                        updateCountdownUI()
+                    }
+                }.start()
 
         updateButtons()
         updateCountdownUI()
@@ -185,7 +185,7 @@ class TimerActivity : AppCompatActivity() {
         val seconds = timerRemainLength
         val minutes = seconds / 60
         val second = seconds - minutes * 60
-        binding.timerContent.countDown.text = getString(R.string.timer_message, minutes, second)
+        binding.timerContent.countDown.text = "$minutes:${if (second.toString().length == 1) "0" + second.toString() else second.toString()}"
         binding.timerContent.processCountdown.progress = (timerLength - timerRemainLength).toInt()
     }
 
@@ -196,12 +196,12 @@ class TimerActivity : AppCompatActivity() {
                 binding.fabPause.isEnabled = true
                 binding.fabStop.isEnabled = true
             }
-            TimerState.Paused ->{
+            TimerState.Paused -> {
                 binding.fabStart.isEnabled = true
                 binding.fabPause.isEnabled = false
                 binding.fabStop.isEnabled = true
             }
-            TimerState.Stopped ->{
+            TimerState.Stopped -> {
                 binding.fabStart.isEnabled = true
                 binding.fabPause.isEnabled = false
                 binding.fabStop.isEnabled = false

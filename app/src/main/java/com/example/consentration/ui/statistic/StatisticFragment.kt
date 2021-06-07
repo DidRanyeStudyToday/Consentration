@@ -42,25 +42,29 @@ class StatisticFragment : Fragment() {
 
         val lineData = LineData(dataSet)
         lineData.setValueFormatter(MyValueFormatter())
+        lineData.setValueTextSize(10f)
         chart.data = lineData
-        chart.isDragEnabled = true
+        chart.isDragEnabled = false
         chart.isScaleYEnabled = true
         chart.isScaleXEnabled = true
+        chart.animateX(500)
+
+
 
         val xAxis = chart.xAxis
         xAxis.position = XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(true)
-        xAxis.setLabelCount(12, false)
+        xAxis.setLabelCount(10, false)
         xAxis.granularity = 1F
-        xAxis.spaceMax = 12F
-        xAxis.spaceMin = 12F
+        xAxis.spaceMax = 6F
+        xAxis.spaceMin = 8F
         xAxis.axisMinimum = 1F
         xAxis.enableGridDashedLine(10f, 10f, 0f)
 
         val leftAxis: YAxis = chart.axisLeft
         leftAxis.setLabelCount(5, false)
-        leftAxis.axisMinimum = 0f
+        leftAxis.axisMinimum = 0F
 
         val rightAxis: YAxis = chart.axisRight
         rightAxis.isEnabled = false

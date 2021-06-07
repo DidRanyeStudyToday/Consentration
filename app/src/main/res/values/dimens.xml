@@ -19,5 +19,6 @@
     <dimen name="font_size_XXXL">100sp</dimen>
     <dimen name="font_size_Large">20sp</dimen>
     <dimen name="font_size_Normal">16sp</dimen>
+    <dimen name="font_size_Small">10sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 </resources>
