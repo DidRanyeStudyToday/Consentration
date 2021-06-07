@@ -21,14 +21,15 @@ class PlanFragment : Fragment() {
     private lateinit var planList: MutableList<Plan>
 
     private var _binding: FragmentPlanBinding? = null
-    private val  binding get() = _binding!!
+    private val binding get() = _binding!!
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
          _binding = FragmentPlanBinding.inflate(inflater, container, false)
+
 
 
 //        val serializedPlan = sharedPreferences.getString(USER_PROFILE, null)

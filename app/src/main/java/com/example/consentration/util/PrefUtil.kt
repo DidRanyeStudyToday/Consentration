@@ -1,39 +1,64 @@
 package com.example.consentration.util
 
 import android.content.Context
-import com.example.consentration.ui.timer.TimerActivity
+import com.github.mikephil.charting.data.Entry
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PrefUtil {
     companion object {
         fun getTimerLength(context: Context): Long {
-            return 1
+            val pref = context.getSharedPreferences(
+                "com.example.consentration_preferences",
+                Context.MODE_PRIVATE
+            )
+            return (pref.getInt("timer_length", 45) * 60).toLong()
         }
 
-        private const val PREVIOUS_TIMER_LENGTH_SECONDS_ID = "previous_timer_length_seconds"
+        fun addTodayStudyTime(context: Context, studyTime: Long) {
+            val pref = context.getSharedPreferences("com.example.study_time", Context.MODE_PRIVATE)
+            val editor = pref.edit()
+            val startDay =
+                if (pref.getLong("start_time", -1) == -1L) {
+                    editor.putLong(
+                        "start_time",
+                        Calendar.getInstance().timeInMillis / (1000L * 60 * 60 * 24)
+                    )
+                    Calendar.getInstance().timeInMillis / (1000L * 60 * 60 * 24)
+                } else {
+                    pref.getLong("start_time", -1)
+                }
 
-        fun getPreviousTimerLengthSeconds(context: Context): Long {
-            val prefs = context.getSharedPreferences("timer", Context.MODE_PRIVATE)
-            return prefs.getLong(PREVIOUS_TIMER_LENGTH_SECONDS_ID, 0)
-        }
-
-        fun setPreviousTimerLengthSeconds(seconds: Long, context: Context) {
-            val editor = context.getSharedPreferences("timer", Context.MODE_PRIVATE).edit()
-            editor.putLong(PREVIOUS_TIMER_LENGTH_SECONDS_ID, seconds)
+            val currentDay = Calendar.getInstance().timeInMillis / (1000L * 60 * 60 * 24)
+            val index = currentDay - startDay + 1
+            if (pref.getFloat(index.toString(), -1.0f) == -1.0f) {
+                editor.putFloat(index.toString(), studyTime.toFloat() / 60.0f / 60.0f)
+            } else {
+                val to =
+                    pref.getFloat(index.toString(), -1.0f) + studyTime.toFloat() / 60.0f / 60.0f
+                editor.putFloat(index.toString(), to)
+            }
             editor.apply()
         }
 
-        private const val TIMERSTATE_ID = "timer_state"
-
-        fun getTimerState(context: Context): TimerActivity.TimerState {
-            val prefs = context.getSharedPreferences("timer", Context.MODE_PRIVATE)
-            val ordinal = prefs.getInt(TIMERSTATE_ID, 0)
-            return TimerActivity.TimerState.values()[ordinal]
+        fun getStudyTime(context: Context): ArrayList<Entry> {
+            val entries = java.util.ArrayList<Entry>()
+            val pref = context.getSharedPreferences("com.example.study_time", Context.MODE_PRIVATE)
+            if (pref.getLong("start_time", -1) == -1L) {
+                return ArrayList()
+            }
+            val startTime = pref.getLong("start_time", -1)
+            val todayTime = Calendar.getInstance().timeInMillis / (1000L * 60 * 60 * 24)
+            for (i in 1..(todayTime - startTime + 1)) {
+                val studyTime = pref.getFloat(i.toString(), -1f)
+                if (studyTime == -1f) {
+                    entries.add(Entry(i.toFloat(), 0f))
+                } else {
+                    entries.add(Entry(i.toFloat(), studyTime))
+                }
+            }
+            return entries
         }
 
-        fun setTimerState(context: Context, timerState: TimerActivity.TimerState) {
-            val editor = context.getSharedPreferences("timer", Context.MODE_PRIVATE).edit()
-            editor.putInt(TIMERSTATE_ID, timerState.ordinal)
-            editor.apply()
-        }
     }
 }

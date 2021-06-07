@@ -12,46 +12,13 @@ class TimerViewModel : ViewModel() {
 
     var previousTimerLength = MutableLiveData<Long>()
 
-//    val timerState: LiveData<TimerActivity.TimerState>
-//        get() {
-//            return _timerState
-//        }
-//
-//    val timerLength: LiveData<Long>
-//        get() {
-//            return _timerLength
-//        }
-//
-//    val timerReamingLength: LiveData<Long>
-//        get() {
-//            return _timerReamingLength
-//        }
-//
-//    val previousTimerLength: LiveData<Long>
-//        get() {
-//            return _previousTimerLength
-//        }
-//
+    var alarmSetTime = MutableLiveData<Long>()
+
     init {
         timerState.value = TimerActivity.TimerState.Stopped
-        timerLength.value = 0L
+        timerLength.value = 60L * 45
         timerRemainLength.value = 11110L
         previousTimerLength.value = 0L
+        alarmSetTime.value = 0L
     }
-//
-//    fun startTimer() {
-//        _timerState.value = TimerActivity.TimerState.Running
-//    }
-//
-//    fun pauseTimer() {
-//        _timerState.value = TimerActivity.TimerState.Paused
-//    }
-//
-//    fun stopTimer() {
-//        _timerState.value = TimerActivity.TimerState.Stopped
-//    }
-//
-//    fun setPreviousTimerLength(value: Long) {
-//        _previousTimerLength.value = value
-//    }
 }
