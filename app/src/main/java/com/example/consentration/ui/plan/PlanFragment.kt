@@ -16,16 +16,16 @@ class PlanFragment : Fragment() {
 //    private lateinit var plansAdapter: PlansAdapter
 
     private var _binding: FragmentPlanBinding? = null
-    private val  binding get() = _binding!!
+    private val binding get() = _binding!!
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-         _binding = FragmentPlanBinding.inflate(inflater, container, false)
+        _binding = FragmentPlanBinding.inflate(inflater, container, false)
         planViewModel =
-                ViewModelProvider(this).get(PlanViewModel::class.java)
+            ViewModelProvider(this).get(PlanViewModel::class.java)
 //        val root = inflater.inflate(R.layout.fragment_plan, container, false)
         val root = binding.root
 
@@ -41,8 +41,8 @@ class PlanFragment : Fragment() {
 
             binding.btnAddTodo.setOnClickListener {
                 val todoTitle = binding.etTodoTitle.text.toString()
-                if(todoTitle.isNotEmpty()) {
-                    val plan = Plan(todoTitle,false)
+                if (todoTitle.isNotEmpty()) {
+                    val plan = Plan(todoTitle, false)
                     plansAdapter.addTodo(plan)
                     binding.etTodoTitle.text.clear()
                 }
@@ -72,5 +72,10 @@ class PlanFragment : Fragment() {
 
 
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 }

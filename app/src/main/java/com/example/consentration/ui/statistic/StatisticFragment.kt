@@ -8,6 +8,7 @@ import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.consentration.R
+import com.example.consentration.util.PrefUtil
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis
@@ -33,13 +34,11 @@ class StatisticFragment : Fragment() {
 
         val chart: LineChart = root.findViewById(R.id.chart)
 
-        entries = ArrayList()
-
-        entries.add(Entry(1F, 14F))
-        entries.add(Entry(2F, 6F))
-        entries.add(Entry(3F, 7F))
+        entries = PrefUtil.getStudyTime(root.context)
 
         val dataSet = LineDataSet(entries, "label")
+
+
 
         val lineData = LineData(dataSet)
         lineData.setValueFormatter(MyValueFormatter())

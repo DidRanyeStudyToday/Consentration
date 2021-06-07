@@ -145,6 +145,10 @@ class TimerActivity : AppCompatActivity() {
     private fun onTimerFinished() {
         timerState = TimerState.Stopped
 
+        if (timerRemainLength <= 0) {
+            PrefUtil.addTodayStudyTime(this, timerLength)
+        }
+
         setNewTimerLength()
 
         binding.timerContent.processCountdown.progress = 0
@@ -154,6 +158,9 @@ class TimerActivity : AppCompatActivity() {
 
         updateButtons()
         updateCountdownUI()
+
+        PrefUtil.addTodayStudyTime(this, timerLength)
+
     }
 
     private fun startTimer() {
