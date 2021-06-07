@@ -160,7 +160,6 @@ class TimerActivity : AppCompatActivity() {
         updateCountdownUI()
 
         PrefUtil.addTodayStudyTime(this, timerLength)
-
     }
 
     private fun startTimer() {
@@ -191,7 +190,7 @@ class TimerActivity : AppCompatActivity() {
     }
 
     private fun updateButtons() {
-        when (timerViewModel.timerState.value) {
+        when (timerState) {
             TimerState.Running -> {
                 binding.fabStart.isEnabled = false
                 binding.fabPause.isEnabled = true
