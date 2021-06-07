@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <SeekBarPreference />
+    <SeekBarPreference
+        android:key="timer_length"
+        android:summary="一段时间多长"
+        android:title="时间"
+        app:defaultValue="45"
+        app:msbp_minValue="1"
+        app:msbp_maxValue="60"
+        app:msbp_interval="1"
+        app:msbp_measurementUnit="分钟"
+        app:msbp_dialogEnabled="true"/>
+</androidx.preference.PreferenceScreen>
