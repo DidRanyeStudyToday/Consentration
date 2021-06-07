@@ -191,8 +191,22 @@ class TimerActivity : AppCompatActivity() {
     }
 
     private fun updateButtons() {
-        when (timerViewModel.timerState) {
-
+        when (timerViewModel.timerState.value) {
+            TimerState.Running -> {
+                binding.fabStart.isEnabled = false
+                binding.fabPause.isEnabled = true
+                binding.fabStop.isEnabled = true
+            }
+            TimerState.Paused ->{
+                binding.fabStart.isEnabled = true
+                binding.fabPause.isEnabled = false
+                binding.fabStop.isEnabled = true
+            }
+            TimerState.Stopped ->{
+                binding.fabStart.isEnabled = true
+                binding.fabPause.isEnabled = false
+                binding.fabStop.isEnabled = false
+            }
         }
     }
 
