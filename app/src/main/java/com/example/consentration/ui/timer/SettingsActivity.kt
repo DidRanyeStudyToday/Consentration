@@ -11,5 +11,11 @@ class SettingsActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "设置"
+        val toolbar: androidx.appcompat.widget.Toolbar =
+            findViewById(R.id.toolbar2)
+        toolbar.setOnClickListener {
+            finish()
+        }
+        toolbar.title = "设置"
     }
 }
